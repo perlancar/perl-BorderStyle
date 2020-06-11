@@ -99,8 +99,20 @@ From DefHash.
 
 =item * utf8
 
-Bool, must be set to true if the border characters are Unicode characters in
-UTF8.
+Bool, must be set to true if the style uses non-ASCII UTF8 border character(s).
+
+Cannot be mixed with L</box_chars>.
+
+=item * box_chars
+
+Bool, must be set to true if the style uses box-drawing character. When using
+box-drawing character, the characters in L</chars> property must be specified
+using the VT100-style escape sequence without the prefix. For example, the
+top-left single border character must be specified as "l". For more details on
+box-drawing character, including the list of escape sequneces, see
+L<https://en.wikipedia.org/wiki/Box-drawing_character>.
+
+Box-drawing characters must not be mixed with other characters (ASCII or UTF8).
 
 =item * chars
 
