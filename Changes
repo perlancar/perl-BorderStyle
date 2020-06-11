@@ -3,7 +3,7 @@
 	- Forgot to specify box_chars property.
 
 
-2.0.0   2020-06-11  Released-By: PERLANCAR
+2.0.0   2020-06-11  Released-By: PERLANCAR; Released: no
 
         - Rename from Border-Style to BorderStyle.
 
