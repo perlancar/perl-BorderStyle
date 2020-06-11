@@ -12,7 +12,7 @@ package BorderStyle;
 
 This document specifies a way to create and use border styles
 
-=hea1 SPECIFICATION VERSION
+=head1 SPECIFICATION VERSION
 
 2
 
@@ -140,6 +140,8 @@ When drawing border, below is how the border characters will be used:
 
 A character can also be a coderef that will be called with C<< ($self, $y, $x,
 $n, \%args) >>. See L</Border style character>.
+
+=back
 
 =head1 Border style character
 
