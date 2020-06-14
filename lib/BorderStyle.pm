@@ -28,9 +28,9 @@ This document specifies a way to create and use border styles
 
 =head2 Border style class
 
-Border style class must be put under C<BorderStyle::*> or, in the case of
-application-specific border styles, C<APP::NAME::BorderStyle::*> where
-C<APP::NAME> is an application's namespace.
+Border style class must be put under C<BorderStyle::*>. Application-specific
+border styles should be put under C<BorderStyle::MODULE::NAME::*> or
+C<BorderStyle::APP::NAME::*>.
 
 Border style structure must be put in the C<%BORDER> package variable.
 
