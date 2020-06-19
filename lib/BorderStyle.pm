@@ -53,8 +53,8 @@ Usage:
  my $bs_struct = BorderStyle::NAME->get_struct;
  my $bs_struct = $bs_obj->get_struct;
 
-Provide a method way of getting the "border style structure". A client can also
-access the %BORDER package variable directly.
+Provide a method way of getting the "border style structure". Must also work as
+a static method. A client can also access the %BORDER package variable directly.
 
 =item * get_args
 
