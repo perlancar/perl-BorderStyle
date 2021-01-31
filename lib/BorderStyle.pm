@@ -122,12 +122,14 @@ An array. Required. Format for the characters in C<chars>:
 
  [                           # y
  #x 0  1  2  3  4  5  6  7
-   [A, B, C, D,              # 0 Top border characters
+   [A, B, C, D],             # 0 Top border characters (if drawing header row)
    [E, F, G],                # 1 Vertical separators for header row
    [H, I, J, K, a, b],       # 2 Separator between header row and first data row
    [L, M, N],                # 3 Vertical separators for data row
    [O, P, Q, R, e, f, g, h], # 4 Separator between data rows
    [S, T, U, V],             # 5 Bottom border characters
+
+   [Ȧ, Ḃ, Ċ, Ḋ],             # 6 Top border characters (if not drawing header row)
  ]
 
 When drawing border, below is how the border characters will be used:
