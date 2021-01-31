@@ -130,6 +130,7 @@ An array. Required. Format for the characters in C<chars>:
    [S, T, U, V],             # 5 Bottom border characters
 
    [Ȧ, Ḃ, Ċ, Ḋ],             # 6 Top border characters (if not drawing header row)
+   [Ṣ, Ṭ, Ụ, Ṿ],             # 7 Bottom border characters (if drawing header row but there are no data rows)
  ]
 
 When drawing border, below is how the border characters will be used:
@@ -141,6 +142,23 @@ When drawing border, below is how the border characters will be used:
  OPPPQPPPR        #4 Separator between data rows
  L   M   N        #3
  STTTUTTTV        #5 Bottom border characters
+
+When not drawing a header row, these characters will be used instead:
+
+ ȦḂḂḂĊḂḂḂḊ        #6 Top border characters (when not drawing header row)
+ L   M   N        #3 Vertical separators for data row
+ OPPPQPPPR        #4 Separator between data rows
+ L   M   N        #3
+ OPPPQPPPR        #4
+ L   M   N        #3
+ STTTUTTTV        #5 Bottom border characters
+
+When drawing a header row and there are no data rows, these characters will be
+used:
+
+ ABBBCBBBD        #0 Top border characters
+ E   F   G        #1 Vertical separators for header row
+ ṢṬṬṬỤṬṬṬṾ        #7 Bottom border characters (when there is header row but no data row)
 
 In table with column and row spans (demonstrates characters C<a>, C<b>, C<e>,
 C<f>, C<g>, C<h>):
