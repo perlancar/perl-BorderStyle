@@ -46,9 +46,10 @@ Border style class must also provide these methods:
 
 Usage:
 
- my $bs_obj = BorderStyle::NAME->new( [ %args ] );
+ my $bs_obj = BorderStyle::NAME->new( [ %style_args ] );
 
-Arguments will depend on the border style class (see L</args>).
+Arguments will depend on the border style class; each border style class can
+define what arguments they want to accept.
 
 =item * get_struct
 
@@ -66,20 +67,21 @@ Usage:
 
  my $args = $bs_obj->get_args;
 
-Provide a method way of getting the arguments to the constructor. The official
-implementation BorderStyleBase::Constructor stores this in the 'args' key of the
-hash object, but the proper way to access the arguments should be via this
-method.
+Provide a method way of getting the arguments to the constructor (the style
+arguments). The official implementation BorderStyleBase::Constructor stores this
+in the 'args' key of the hash object, but the proper way to access the arguments
+should be via this method.
 
 =item * get_border_char
 
 Usage:
 
- my $str = $bs->get_border_char($y, $x, $n, \%args);
+ my $str = $bs->get_border_char($y, $x, $n, \%char_args);
 
 Get border character at a particular C<$y> and C<$x> position, duplicated C<$n>
-times (defaults to 1). Arguments can be passed to border character that is a
-coderef.
+times (defaults to 1). Per-character arguments can also be passed. Known
+per-character arguments: C<rownum> (uint, row number, starts from 0), C<colnum>
+(uint, column number, starts from 0).
 
 =back
 
@@ -117,6 +119,14 @@ box-drawing character, including the list of escape sequneces, see
 L<https://en.wikipedia.org/wiki/Box-drawing_character>.
 
 Box-drawing characters must not be mixed with other characters (ASCII or UTF8).
+
+=item * args
+
+A hash of argument names and specifications (each specification a L<DefHash>) to
+specify which arguments a border style accept. This is similar to how
+L<Rinci::function> specifies function arguments. An argument specification can
+contain these properties: C<summary>, C<description>, C<schema>, C<req>,
+C<default>.
 
 =item * chars
 
