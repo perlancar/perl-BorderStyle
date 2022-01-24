@@ -1,3 +1,5 @@
+# no code
+## no critic: TestingAndDebugging::RequireUseStrict
 package BorderStyle;
 
 # AUTHORITY
@@ -122,60 +124,74 @@ An array. Required. Format for the characters in C<chars>:
 
  [                           # y
  #x 0  1  2  3  4  5  6  7
-   [A, B, C, D],             # 0 Top border characters (if drawing header row)
+   [A, B, C, D],             # 0 Top border characters (if drawing header rows)
    [E, F, G],                # 1 Vertical separators for header row
    [H, I, J, K, a, b],       # 2 Separator between header row and first data row
    [L, M, N],                # 3 Vertical separators for data row
    [O, P, Q, R, e, f, g, h], # 4 Separator between data rows
    [S, T, U, V],             # 5 Bottom border characters
 
-   [Ȧ, Ḃ, Ċ, Ḋ],             # 6 Top border characters (if not drawing header row)
-   [Ṣ, Ṭ, Ụ, Ṿ],             # 7 Bottom border characters (if drawing header row but there are no data rows)
+   [Ȧ, Ḃ, Ċ, Ḋ],             # 6 Top border characters (if not drawing header rows)
+   [Ṣ, Ṭ, Ụ, Ṿ],             # 7 Bottom border characters (if drawing header rows but there are no data rows)
+
+   [Ȯ, Ṗ, Ꝙ, Ṙ, ė, ḟ, ġ, ḣ], # 8 Separator between header rows
  ]
 
 When drawing border, below is how the border characters will be used:
 
  ABBBCBBBD        #0 Top border characters
  E   F   G        #1 Vertical separators for header row
- HIIIJIIIK        #2 Separator between header row and first data row
+ ȮṖṖṖꝘṖṖṖṘ        #8 Separator between header rows (if there are multiple header rows)
+ E   F   G        #1 (another header row, if there are multiple header rows)
+ HIIIJIIIK        #2 Separator between last header row and first data row
  L   M   N        #3 Vertical separators for data row
  OPPPQPPPR        #4 Separator between data rows
- L   M   N        #3
+ L   M   N        #3 (another data row)
  STTTUTTTV        #5 Bottom border characters
 
-When not drawing a header row, these characters will be used instead:
+When not drawing header rows, these characters will be used instead:
 
- ȦḂḂḂĊḂḂḂḊ        #6 Top border characters (when not drawing header row)
+ ȦḂḂḂĊḂḂḂḊ        #6 Top border characters (when not drawing header rows)
  L   M   N        #3 Vertical separators for data row
  OPPPQPPPR        #4 Separator between data rows
- L   M   N        #3
- OPPPQPPPR        #4
- L   M   N        #3
+ L   M   N        #3 (another data row)
+ OPPPQPPPR        #4 (another separator between data rows)
+ L   M   N        #3 (another data row)
  STTTUTTTV        #5 Bottom border characters
 
-When drawing a header row and there are no data rows, these characters will be
+When drawing header rows and there are no data rows, these characters will be
 used:
 
  ABBBCBBBD        #0 Top border characters
  E   F   G        #1 Vertical separators for header row
- ṢṬṬṬỤṬṬṬṾ        #7 Bottom border characters (when there is header row but no data row)
+ ȮṖṖṖꝘṖṖṖṘ        #8 Separator between header rows (if there are multiple header rows)
+ E   F   G        #1 (another header row, if there are multiple header rows)
+ ṢṬṬṬỤṬṬṬṾ        #7 Bottom border characters (when there are header rows but no data row)
 
 In table with column and row spans (demonstrates characters C<a>, C<b>, C<e>,
 C<f>, C<g>, C<h>):
 
- ABBBCBBBCBBBCBBBD
- E       F   F   G
- HIIIaIIIJIIIbIIIK         # a=no top line, b=no bottom line
- L   M   M       N
- OPPPfPPPQPPPePPPR         # e=no top line, f=no bottom line
- L       M   M   N
- OPPPPPPPQPPPePPPR
- L       M       N
- L       gPPPPPPPR         # g=no left line
- L       M       N
- OPPPPPPPh       N         # h=on right line
- L       M       N
- STTTTTTTUTTTTTTTV
+ ABBBCBBBCBBBCBBBD  ^
+ E       F   F   G  |
+ ȮṖṖṖḟṖṖṖꝘṖṖṖėṖṖṖṘ  |      # ė=no top line, ḟ=no bottom line
+ E       F   F   G  |
+ ȮṖṖṖṖṖṖṖꝘṖṖṖeṖṖṖṘ  +------> header area
+ E       F       G  |
+ E       ġṖṖṖṖṖṖṖṘ  |      # ġ=no left line
+ E       F       G  |
+ ȮṖṖṖṖṖṖṖḣ       G  |      # h=on right line
+ E       F       G  |
+ HIIIaIIIJIIIbIIIK  v ^    # a=no top line, b=no bottom line
+ L   M   M       N    |
+ OPPPfPPPQPPPePPPR    |    # e=no top line, f=no bottom line
+ L       M   M   N    |
+ OPPPPPPPQPPPePPPR    +----> data area
+ L       M       N    |
+ L       gPPPPPPPR    |    # g=no left line
+ L       M       N    |
+ OPPPPPPPh       N    |    # h=on right line
+ L       M       N    |
+ STTTTTTTUTTTTTTTV    v
 
 A character can also be a coderef that will be called with C<< ($self, $y, $x,
 $n, \%args) >>. See L</Border style character>.
