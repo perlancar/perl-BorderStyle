@@ -1,3 +1,8 @@
+2.0.7   2022-01-24  Released-By: PERLANCAR; Urgency: medium
+
+        - Support multiple header rows.
+
+
 2.0.6   2021-01-31  Released-By: PERLANCAR; Urgency: medium
 
 	- Introduce bottom border characters (when we are drawing header
