@@ -136,7 +136,7 @@ An array. Required. Format for the characters in C<chars>:
  #x 0  1  2  3  4  5  6  7
    [A, B, C, D],             # 0 Top border characters (if drawing header rows)
    [E, F, G],                # 1 Vertical separators for header row
-   [H, I, J, K, a, b],       # 2 Separator between header row and first data row
+   [H, I, J, K, a, b, c, d], # 2 Separator between header row and first data row
    [L, M, N],                # 3 Vertical separators for data row
    [O, P, Q, R, e, f, g, h], # 4 Separator between data rows
    [S, T, U, V],             # 5 Bottom border characters
