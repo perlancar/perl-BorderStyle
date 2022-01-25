@@ -203,12 +203,24 @@ C<f>, C<g>, C<h>):
  L       M       N    |
  STTTTTTTUTTTTTTTV    v
 
+In the case of a header-data separator line also having been cut by a multirow
+cell (note the C<c> and C<d> border character):
+
+ ABBBBBBBBBCBBBBBBBBBBBBBBBBBBBBBCBBBBBBBBBD
+ F header1 F       header2       F header3 G
+ H         cIIIIIIIIIIaIIIIIIIIIId         J
+ L         M header2a M header2b F         N
+ OPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPR
+ M data1a  M data1b   M data1c   M data1d  N
+ STTTTTTTTTUTTTTTTTTTTUTTTTTTTTTTUTTTTTTTTTV
+
 A character can also be a coderef that will be called with C<< ($self, $y, $x,
 $n, \%args) >>. See L</Border style character>.
 
 =back
 
-=head1 Border style character
+
+=head2 Border style character
 
 A border style character can be a single-character string, or a coderef to allow
 border style that is context-sensitive.
