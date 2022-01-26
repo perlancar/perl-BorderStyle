@@ -206,13 +206,15 @@ C<f>, C<g>, C<h>):
 In the case of a header-data separator line also having been cut by a multirow
 cell (note the C<c> and C<d> border character):
 
- ABBBBBBBBBCBBBBBBBBBBBBBBBBBBBBBCBBBBBBBBBD
- F header1 F       header2       F header3 G
- H         cIIIIIIIIIIaIIIIIIIIIId         J
- L         M header2a M header2b F         N
- OPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPR
- M data1a  M data1b   M data1c   M data1d  N
- STTTTTTTTTUTTTTTTTTTTUTTTTTTTTTTUTTTTTTTTTV
+ ABBBBBBBBBCBBBBBBBBBBBBBBBBBBBBBCBBBBBBBBBD  ^
+ F         F                     F         G  |
+ F         cIIIIIIIIIIaIIIIIIIIIId         G  +-------> header area
+ L         M          M          F         N  |
+ OPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPR  v  ^
+ M         M          M          M         N     |
+ M         M          M          M         N     +----> data area
+ M         M          M          M         N     |
+ STTTTTTTTTUTTTTTTTTTTUTTTTTTTTTTUTTTTTTTTTV     v
 
 A character can also be a coderef that will be called with C<< ($self, $y, $x,
 $n, \%args) >>. See L</Border style character>.
