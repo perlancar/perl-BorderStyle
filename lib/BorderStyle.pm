@@ -181,11 +181,11 @@ used:
 In table with column and row spans (demonstrates characters C<a>, C<b>, C<e>,
 C<f>, C<g>, C<h>):
 
- ABBBCBBBCBBBCBBBD  ^
+ ABBBBBBBCBBBCBBBD  ^
  E       F   F   G  |
- ȮṖṖṖḟṖṖṖꝘṖṖṖėṖṖṖṘ  |      # ė=no top line, ḟ=no bottom line
+ ȮṖṖṖṖṖṖṖꝘṖṖṖėṖṖṖṘ  |      # ė=no top line, ḟ=no bottom line
  E       F   F   G  |
- ȮṖṖṖṖṖṖṖꝘṖṖṖeṖṖṖṘ  +------> header area
+ ȮṖṖṖṖṖṖṖꝘṖṖṖḟṖṖṖṘ  +------> header area
  E       F       G  |
  E       ġṖṖṖṖṖṖṖṘ  |      # ġ=no left line
  E       F       G  |
