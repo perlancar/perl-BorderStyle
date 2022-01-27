@@ -134,10 +134,10 @@ An array. Required. Format for the characters in C<chars>:
 
  [                           # y
  #x 0  1  2  3  4  5  6  7
-   [A, B, C, D],             # 0 Top border characters (if drawing header rows)
-   [E, F, G],                # 1 Vertical separators for header row
-   [H, I, J, K, a, b, c, d], # 2 Separator between header row and first data row
-   [L, M, N],                # 3 Vertical separators for data row
+   [A, B, C, D],             # 0 Top border characters (if drawing header rows) (left, middle, middle with bottom branch, right)
+   [E, F, G],                # 1 Header row, vertical separator characters (left, middle, right)
+   [H, I, J, K, a, b, c, d], # 2 Header-row separator line (left, middle, middle with bottom branch, right,
+   [L, M, N],                # 3 Data row, vertical separator characters (left, middle, right)
    [O, P, Q, R, e, f, g, h], # 4 Separator between data rows
    [S, T, U, V],             # 5 Bottom border characters
 
@@ -207,8 +207,8 @@ In the case of a header-data separator line also having been cut by a multirow
 cell (note the C<c> and C<d> border character):
 
  ABBBBBBBBBCBBBBBBBBBBBBBBBBBBBBBCBBBBBBBBBD  ^
- F         F                     F         G  |
- F         cIIIIIIIIIIaIIIIIIIIIId         G  +-------> header area
+ E         F                     F         G  |
+ E         cIIIIIIIIIIaIIIIIIIIIId         G  +-------> header area
  L         M          M          F         N  |
  OPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPR  v  ^
  M         M          M          M         N     |
