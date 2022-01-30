@@ -18,7 +18,7 @@ This document specifies a way to create and use border styles
 
 =head1 SPECIFICATION VERSION
 
-2
+3
 
 
 =head1 GLOSSARY
@@ -76,12 +76,12 @@ should be via this method.
 
 Usage:
 
- my $str = $bs->get_border_char($y, $x, $n, \%char_args);
+ my $str = $bs->get_border_char($name, $n, \%char_args);
 
-Get border character at a particular C<$y> and C<$x> position, duplicated C<$n>
-times (defaults to 1). Per-character arguments can also be passed. Known
-per-character arguments: C<rownum> (uint, row number, starts from 0), C<colnum>
-(uint, column number, starts from 0).
+Get border character named C<$name>, repeated C<$n> times (defaults to 1).
+Per-character arguments can also be passed. Known per-character arguments:
+C<rownum> (uint, row number of the table cell, starts from 0), C<colnum> (uint,
+column number of the table cell, starts from 0).
 
 =back
 
@@ -130,97 +130,21 @@ C<default>.
 
 =item * chars
 
-An array. Required. Format for the characters in C<chars>:
+Required, hash. A mapping of border character names and the actual characters.
+Must contain these keys:
 
- [                           # y
- #x 0  1  2  3  4  5  6  7
-   [A, B, C, D],             # 0 Top border characters (if drawing header rows) (left, middle, middle with bottom branch, right)
-   [E, F, G],                # 1 Header row, vertical separator characters (left, middle, right)
-   [H, I, J, K, a, b, c, d], # 2 Header-row separator line (left, middle, middle with bottom branch, right,
-   [L, M, N],                # 3 Data row, vertical separator characters (left, middle, right)
-   [O, P, Q, R, e, f, g, h], # 4 Separator between data rows
-   [S, T, U, V],             # 5 Bottom border characters
+ (A) header_down_right
+ (B) header_horizontal
+ (C) header_down_horizontal
+ (D) header_down_left
 
-   [Ȧ, Ḃ, Ċ, Ḋ],             # 6 Top border characters (if not drawing header rows)
-   [Ṣ, Ṭ, Ụ, Ṿ],             # 7 Bottom border characters (if drawing header rows but there are no data rows)
-
-   [Ȯ, Ṗ, Ꝙ, Ṙ, ė, ḟ, ġ, ḣ], # 8 Separator between header rows
- ]
-
-When drawing border, below is how the border characters will be used:
-
- ABBBCBBBD        #0 Top border characters
- E   F   G        #1 Vertical separators for header row
- ȮṖṖṖꝘṖṖṖṘ        #8 Separator between header rows (if there are multiple header rows)
- E   F   G        #1 (another header row, if there are multiple header rows)
- HIIIJIIIK        #2 Separator between last header row and first data row
- L   M   N        #3 Vertical separators for data row
- OPPPQPPPR        #4 Separator between data rows
- L   M   N        #3 (another data row)
- STTTUTTTV        #5 Bottom border characters
-
-When not drawing header rows, these characters will be used instead:
-
- ȦḂḂḂĊḂḂḂḊ        #6 Top border characters (when not drawing header rows)
- L   M   N        #3 Vertical separators for data row
- OPPPQPPPR        #4 Separator between data rows
- L   M   N        #3 (another data row)
- OPPPQPPPR        #4 (another separator between data rows)
- L   M   N        #3 (another data row)
- STTTUTTTV        #5 Bottom border characters
-
-When drawing header rows and there are no data rows, these characters will be
-used:
-
- ABBBCBBBD        #0 Top border characters
- E   F   G        #1 Vertical separators for header row
- ȮṖṖṖꝘṖṖṖṘ        #8 Separator between header rows (if there are multiple header rows)
- E   F   G        #1 (another header row, if there are multiple header rows)
- ṢṬṬṬỤṬṬṬṾ        #7 Bottom border characters (when there are header rows but no data row)
-
-In table with column and row spans (demonstrates characters C<a>, C<b>, C<e>,
-C<f>, C<g>, C<h>):
-
- ABBBBBBBCBBBCBBBD  ^
- E       F   F   G  |
- ȮṖṖṖṖṖṖṖꝘṖṖṖėṖṖṖṘ  |      # ė=no top line, ḟ=no bottom line
- E       F   F   G  |
- ȮṖṖṖṖṖṖṖꝘṖṖṖḟṖṖṖṘ  +------> header area
- E       F       G  |
- E       ġṖṖṖṖṖṖṖṘ  |      # ġ=no left line
- E       F       G  |
- ȮṖṖṖṖṖṖṖḣ       G  |      # h=on right line
- E       F       G  |
- HIIIaIIIJIIIbIIIK  v ^    # a=no top line, b=no bottom line
- L   M   M       N    |
- OPPPfPPPQPPPePPPR    |    # e=no top line, f=no bottom line
- L       M   M   N    |
- OPPPPPPPQPPPePPPR    +----> data area
- L       M       N    |
- L       gPPPPPPPR    |    # g=no left line
- L       M       N    |
- OPPPPPPPh       N    |    # h=on right line
- L       M       N    |
- STTTTTTTUTTTTTTTV    v
-
-In the case of a header-data separator line also having been cut by a multirow
-cell (note the C<c> and C<d> border character):
-
- ABBBBBBBBBCBBBBBBBBBBBBBBBBBBBBBCBBBBBBBBBD  ^
- E         F                     F         G  |
- E         cIIIIIIIIIIaIIIIIIIIIId         G  +-------> header area
- L         M          M          F         N  |
- OPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPPQPPPPPPPPPR  v  ^
- M         M          M          M         N     |
- M         M          M          M         N     +----> data area
- M         M          M          M         N     |
- STTTTTTTTTUTTTTTTTTTTUTTTTTTTTTTUTTTTTTTTTV     v
-
-A character can also be a coderef that will be called with C<< ($self, $y, $x,
-$n, \%args) >>. See L</Border style character>.
-
-=back
-
+ '┏━━━━━━━━━━━┳━━━━━┳━━━━━┓'
+ '┃ ......... ┃ ... ┃ ... ┃'
+ '┃ ......... ┣━━━━━┻━━━━━┫'
+ '┃ ......... ┃ ......... ┃'
+ '┣━━━━━┳━━━━━┫ ......... ┃'
+ '┃ ... ┃ ... ┃ ......... ┃'
+ '┗━━━━━┻━━━━━┻━━━━━━━━━━━┛'
 
 =head2 Border style character
 
@@ -233,5 +157,15 @@ passed to L</get_border_char>.
 
 
 =head1 HISTORY
+
+=head2 v3
+
+Incompatible change in C<chars> to allow for footer area
+
+=head2 v2
+
+The first version of BorderStyle.
+
+=head2 Border::Style
 
 L<Border::Style> is an older specification, superseded by this document.
