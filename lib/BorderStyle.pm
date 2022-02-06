@@ -36,8 +36,6 @@ Border style class must be put under C<BorderStyle::*>. Application-specific
 border styles should be put under C<BorderStyle::MODULE::NAME::*> or
 C<BorderStyle::APP::NAME::*>.
 
-Border style structure must be put in the C<%BORDER> package variable.
-
 Border style class must also provide these methods:
 
 =over
@@ -76,12 +74,120 @@ should be via this method.
 
 Usage:
 
- my $str = $bs->get_border_char($name, $n, \%char_args);
+ my $str = $bs->get_border_char($name [ , $n, \%char_args ]);
 
-Get border character named C<$name>, repeated C<$n> times (defaults to 1).
-Per-character arguments can also be passed. Known per-character arguments:
-C<rownum> (uint, row number of the table cell, starts from 0), C<colnum> (uint,
-column number of the table cell, starts from 0).
+Get border character named C<$name>, repeated C<$n> times (defaults to 1). Names
+of known border characters are given below (a character label denotes the border
+character below it):
+
+
+ ABBBBBBBBBBBCBBBBBCBBBBBD
+ ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
+ E           E     E     E
+ ┃ ......... ┃ ... ┃ ... ┃
+ E           FBBBBBGBBBBBH
+ ┃ ......... ┣━━━━━╋━━━━━┫
+ E           FBBBBBIBBBBBH
+ ┃ ......... ┣━━━━━┻━━━━━┫
+ E           E           E
+ ┃ ......... ┃ ......... ┃
+ FBBBBBCBBBBBH           E
+ ┣━━━━━┳━━━━━┫ ......... ┃
+ E     E     E           E
+ ┃ ... ┃ ... ┃ ......... ┃
+ JBBBBBGBBBBBGBBBBBBBBBBBK
+ ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
+
+     border character name
+     ---------------------
+ A = right_down
+ B = horizontal
+ C = horizontal_down
+ D = left_down
+ E = vertical
+ F = right_vertical
+ G = horizontal_vertical
+ H = left_vertical
+ I = horizontal_up
+ J = right_up
+ K = left_up
+
+Per-character arguments (C<%char_args>) can also be passed. These arguments will
+be passed to border character that is coderef, or to be interpreted by the
+class' C<get_border_char()> to vary the character. Known per-character
+arguments:
+
+=over
+
+=item * rownum
+
+uint, row number of the table cell, starts from 0.
+
+=item * colnum
+
+uint, column number of the table cell, starts from 0.
+
+=item * is_header_header_separator
+
+Bool. True if drawing a separator line between header rows/columns.
+
+=item * is_header_row
+
+Bool. True if drawing a header row.
+
+=item * is_header_column
+
+Bool. True if drawing a header column.
+
+=item * is_header_data_separator
+
+Bool. True if drawing a separator line between the last header row/column and
+the first data row/column.
+
+=item * is_data_row
+
+Bool. True if drawing a data row.
+
+=item * is_data_column
+
+Bool. True if drawing a data column.
+
+=item * is_data_footer_separator
+
+Bool. True if drawing a separator line between the last data row/column and the
+first footer row/column.
+
+=item * is_footer_row
+
+Bool. True if drawing a footer row.
+
+=item * is_footer_column
+
+Bool. True if drawing a footer column.
+
+=item * is_footer_footer_separator
+
+Bool. True if drawing a separator line between footer rows/columns.
+
+=item * is_inside_cell
+
+Bool. True if drawing an inside cell. For example, a border style might not draw
+any border lines for the inside cells (the lower letter borders are "inside").
+
+ ABBBBBBBBBBBCBBBBBCBBBBBD
+ ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
+ E           e     e     E
+ ┃ ......... ┃ ... ┃ ... ┃
+ E           fbbbbbgbbbbbH
+ ┃ ......... ┣━━━━━┻━━━━━┫
+ E           e           E
+ ┃ ......... ┃ ......... ┃
+ Fbbbbbcbbbbbh           E
+ ┣━━━━━┳━━━━━┫ ......... ┃
+ E     e     e           E
+ ┃ ... ┃ ... ┃ ......... ┃
+ IBBBBBGBBBBBGBBBBBBBBBBBJ
+ ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
 
 =back
 
@@ -128,23 +234,9 @@ L<Rinci::function> specifies function arguments. An argument specification can
 contain these properties: C<summary>, C<description>, C<schema>, C<req>,
 C<default>.
 
-=item * chars
+=back
 
-Required, hash. A mapping of border character names and the actual characters.
-Must contain these keys:
-
- (A) header_down_right
- (B) header_horizontal
- (C) header_down_horizontal
- (D) header_down_left
-
- '┏━━━━━━━━━━━┳━━━━━┳━━━━━┓'
- '┃ ......... ┃ ... ┃ ... ┃'
- '┃ ......... ┣━━━━━┻━━━━━┫'
- '┃ ......... ┃ ......... ┃'
- '┣━━━━━┳━━━━━┫ ......... ┃'
- '┃ ... ┃ ... ┃ ......... ┃'
- '┗━━━━━┻━━━━━┻━━━━━━━━━━━┛'
+Border style structure must be put in the C<%BORDER> package variable.
 
 =head2 Border style character
 
@@ -160,7 +252,10 @@ passed to L</get_border_char>.
 
 =head2 v3
 
-Incompatible change in C<chars> to allow for footer area
+Incompatible change. Remove C<chars> in border style structure and abstract it
+through C<get_border_char()> to be more flexible, e.g. to allow for footer area,
+vertical header (header columns), and so on. Replace the positional C<x, y>
+arguments with character name and attributes, to be more flexible and readable.
 
 =head2 v2
 
