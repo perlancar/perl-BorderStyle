@@ -74,58 +74,27 @@ should be via this method.
 
 Usage:
 
- my $str = $bs->get_border_char($name [ , $n, \%char_args ]);
+ my $str = $bs->get_border_char(%args);
 
-Get border character named C<$name>, repeated C<$n> times (defaults to 1). Names
-of known border characters are given below (a character label denotes the border
-character below it):
-
-
- ABBBBBBBBBBBCBBBBBCBBBBBD
- ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
- E           E     E     E
- ┃ ......... ┃ ... ┃ ... ┃
- E           FBBBBBGBBBBBH
- ┃ ......... ┣━━━━━╋━━━━━┫
- E           FBBBBBIBBBBBH
- ┃ ......... ┣━━━━━┻━━━━━┫
- E           E           E
- ┃ ......... ┃ ......... ┃
- FBBBBBCBBBBBH           E
- ┣━━━━━┳━━━━━┫ ......... ┃
- E     E     E           E
- ┃ ... ┃ ... ┃ ......... ┃
- JBBBBBGBBBBBGBBBBBBBBBBBK
- ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
-
-     border character name   description
-     ---------------------   -----------
- A = rd                      right_down
- B = h                       horizontal
- C = hd                      horizontal_down
- D = ld                      left_down
- E = v                       vertical
- F = rv                      right_vertical
- G = hv                      horizontal_vertical
- H = lv                      left_vertical
- I = hu                      horizontal_up
- J = ru                      right_up
- K = lu                      left_up
-
-Per-character arguments (C<%char_args>) can also be passed. These arguments will
-be passed to border character that is coderef, or to be interpreted by the
-class' C<get_border_char()> to vary the character. Known per-character
-arguments:
+Get border character. Arguments include:
 
 =over
 
+=item * char
+
+String. Required. Character name (see below).
+
+=item * repeat
+
+Uint. Optional, defaults to 1.
+
 =item * rownum
 
-uint, row number of the table cell, starts from 0.
+Uint, row number of the table cell, starts from 0.
 
 =item * colnum
 
-uint, column number of the table cell, starts from 0.
+Uint, column number of the table cell, starts from 0.
 
 =item * for_header_header_separator
 
@@ -192,7 +161,48 @@ any border lines for the inside cells (the lower letter borders are "inside").
  IBBBBBGBBBBBGBBBBBBBBBBBJ
  ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
 
+=item * Other arguments
+
 =back
+
+B<Character names>. Names of known border characters are given below (a
+character label denotes the border character below it):
+
+
+ ABBBBBBBBBBBCBBBBBCBBBBBD
+ ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
+ E           E     E     E
+ ┃ ......... ┃ ... ┃ ... ┃
+ E           FBBBBBGBBBBBH
+ ┃ ......... ┣━━━━━╋━━━━━┫
+ E           FBBBBBIBBBBBH
+ ┃ ......... ┣━━━━━┻━━━━━┫
+ E           E           E
+ ┃ ......... ┃ ......... ┃
+ FBBBBBCBBBBBH           E
+ ┣━━━━━┳━━━━━┫ ......... ┃
+ E     E     E           E
+ ┃ ... ┃ ... ┃ ......... ┃
+ JBBBBBGBBBBBGBBBBBBBBBBBK
+ ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
+
+     border character name   description
+     ---------------------   -----------
+ A = rd                      right_down
+ B = h                       horizontal
+ C = hd                      horizontal_down
+ D = ld                      left_down
+ E = v                       vertical
+ F = rv                      right_vertical
+ G = hv                      horizontal_vertical
+ H = lv                      left_vertical
+ I = hu                      horizontal_up
+ J = ru                      right_up
+ K = lu                      left_up
+
+The arguments to C<get_border_char()> will also be passed to border character
+that is coderef, or to be interpreted by the class' C<get_border_char()> to vary
+the character.
 
 =head2 Border style structure
 
