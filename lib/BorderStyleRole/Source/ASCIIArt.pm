@@ -151,7 +151,7 @@ element being a hash:
      {
          # imagine every line is a header-row separator line (theoretically, the
          # top and bottom lines won't ever be used as separator though)
-         is_header_data_separator => 1,
+         for_header_data_separator => 1,
          picture => <<'_',
  ┍━━━━━━━┯━━━┯━━━┑
  ╿ ..... ╿ , ╿ . ╿
@@ -165,7 +165,7 @@ element being a hash:
  _
      },
      {
-         is_header_row => 1,
+         for_header_row => 1,
          picture => <<'_',
  ┏━━━━━━━┳━━━┳━━━┓
  ┃ ..... ┃ , ┃ . ┃
