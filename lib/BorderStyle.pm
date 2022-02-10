@@ -98,19 +98,19 @@ character below it):
  JBBBBBGBBBBBGBBBBBBBBBBBK
  ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
 
-     border character name
-     ---------------------
- A = right_down
- B = horizontal
- C = horizontal_down
- D = left_down
- E = vertical
- F = right_vertical
- G = horizontal_vertical
- H = left_vertical
- I = horizontal_up
- J = right_up
- K = left_up
+     border character name   description
+     ---------------------   -----------
+ A = rd                      right_down
+ B = h                       horizontal
+ C = hd                      horizontal_down
+ D = ld                      left_down
+ E = v                       vertical
+ F = rv                      right_vertical
+ G = hv                      horizontal_vertical
+ H = lv                      left_vertical
+ I = hu                      horizontal_up
+ J = ru                      right_up
+ K = lu                      left_up
 
 Per-character arguments (C<%char_args>) can also be passed. These arguments will
 be passed to border character that is coderef, or to be interpreted by the
@@ -127,49 +127,52 @@ uint, row number of the table cell, starts from 0.
 
 uint, column number of the table cell, starts from 0.
 
-=item * is_header_header_separator
+=item * for_header_header_separator
 
 Bool. True if drawing a separator line between header rows/columns.
 
-=item * is_header_row
+=item * for_header_row
 
-Bool. True if drawing a header row.
+Bool. True if drawing a header row, or a separator line between header rows, or
+a separator between header row and data row.
 
-=item * is_header_column
+=item * for_header_column
 
 Bool. True if drawing a header column.
 
-=item * is_header_data_separator
+=item * for_header_data_separator
 
 Bool. True if drawing a separator line between the last header row/column and
 the first data row/column.
 
-=item * is_data_row
+=item * for_data_row
 
-Bool. True if drawing a data row.
+Bool. True if drawing a data row, or a separator line between data rows, or a
+separator between header row and data row.
 
-=item * is_data_column
+=item * for_data_column
 
 Bool. True if drawing a data column.
 
-=item * is_data_footer_separator
+=item * for_data_footer_separator
 
 Bool. True if drawing a separator line between the last data row/column and the
 first footer row/column.
 
-=item * is_footer_row
+=item * for_footer_row
 
-Bool. True if drawing a footer row.
+Bool. True if drawing a footer row, or separator between footer rows, or
+separator between data row and footer row.
 
-=item * is_footer_column
+=item * for_footer_column
 
 Bool. True if drawing a footer column.
 
-=item * is_footer_footer_separator
+=item * for_footer_footer_separator
 
 Bool. True if drawing a separator line between footer rows/columns.
 
-=item * is_inside_cell
+=item * for_inside_cell
 
 Bool. True if drawing an inside cell. For example, a border style might not draw
 any border lines for the inside cells (the lower letter borders are "inside").
@@ -252,10 +255,15 @@ passed to L</get_border_char>.
 
 =head2 v3
 
-Incompatible change. Remove C<chars> in border style structure and abstract it
-through C<get_border_char()> to be more flexible, e.g. to allow for footer area,
-vertical header (header columns), and so on. Replace the positional C<x, y>
-arguments with character name and attributes, to be more flexible and readable.
+Incompatible change.
+
+Remove C<chars> in border style structure and abstract it through
+C<get_border_char()> to be more flexible, e.g. to allow for footer area,
+vertical header (header columns), and so on.
+
+Replace the positional arguments in C<get_border_char()> with named to be more
+flexible. Replace the C<x> and C<y> arguments to refer to character with
+character C<name> and attributes, to be more flexible and readable.
 
 =head2 v2
 
@@ -263,4 +271,7 @@ The first version of BorderStyle.
 
 =head2 Border::Style
 
-L<Border::Style> is an older specification, superseded by this document.
+L<Border::Style> is an older specification, superseded by this document. The
+older specification defines border style as just the border style structure, not
+the class and thus lacks methods like C<get_struct()>, C<get_args()>, and
+C<get_border_char()>.
