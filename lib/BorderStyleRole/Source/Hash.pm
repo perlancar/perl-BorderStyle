@@ -58,6 +58,7 @@ sub get_border_char {
     if (ref $_char eq 'CODE') {
         return $_char->(%args);
     } else {
+        #print "D:char=<$_char>\n";
         return $_char x $repeat;
     }
 }

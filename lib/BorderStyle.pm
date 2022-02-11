@@ -96,14 +96,14 @@ Uint, row number of the table cell, starts from 0.
 
 Uint, column number of the table cell, starts from 0.
 
-=item * for_header_header_separator
-
-Bool. True if drawing a separator line between header rows/columns.
-
 =item * for_header_row
 
 Bool. True if drawing a header row, or a separator line between header rows, or
 a separator between header row and data row.
+
+=item * for_header_header_separator
+
+Bool. True if drawing a separator line between header rows/columns.
 
 =item * for_header_column
 
@@ -118,6 +118,10 @@ the first data row/column.
 
 Bool. True if drawing a data row, or a separator line between data rows, or a
 separator between header row and data row.
+
+=item * for_data_data_separator
+
+Bool. True if drawing a separator line between data rows/columns.
 
 =item * for_data_column
 
@@ -141,10 +145,11 @@ Bool. True if drawing a footer column.
 
 Bool. True if drawing a separator line between footer rows/columns.
 
-=item * for_inside_cell
+=item * for_outer_border
 
-Bool. True if drawing an inside cell. For example, a border style might not draw
-any border lines for the inside cells (the lower letter borders are "inside").
+Bool. True if drawing an outer border. In the example below, characters denoted
+with uppercase letters are outer border, while those denoted with lowercase
+letters are inner border.
 
  ABBBBBBBBBBBCBBBBBCBBBBBD
  ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
@@ -160,6 +165,22 @@ any border lines for the inside cells (the lower letter borders are "inside").
  ┃ ... ┃ ... ┃ ......... ┃
  IBBBBBGBBBBBGBBBBBBBBBBBJ
  ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
+
+=item * for_left_border
+
+Bool. True if drawing a left outer border character.
+
+=item * for_right_border
+
+Bool. True if drawing a right outer border character.
+
+=item * for_top_border
+
+Bool. True if drawing a top outer border character.
+
+=item * for_bottom_border
+
+Bool. True if drawing a bottom outer border character.
 
 =item * Other arguments
 

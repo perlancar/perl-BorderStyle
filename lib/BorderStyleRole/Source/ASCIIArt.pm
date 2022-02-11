@@ -12,16 +12,16 @@ with 'BorderStyleRole::Source::Hash';
 # VERSION
 
 # offsets after newlines are removed
-#    01234567890123456
-#    ┌───────┬───┬───┐
-#+ 17│ ..... │ . │ . │
-#+ 34│ ..... ├───┼───┤
-#+ 51│ ..... │ . │ . │
-#+ 68│ ..... ├───┴───┤
-#+ 85│ ..... │ ..... │
-#+102├───┬───┤ ..... │
-#+119│ . │ . │ ..... │
-#+136└───┴───┴───────┘
+#    012345678901234567
+#    ┌───────┬───┬───┐'
+#+ 18│ ..... │ . │ . │'
+#+ 36│ ..... ├───┼───┤'
+#+ 54│ ..... │ . │ . │'
+#+ 72│ ..... ├───┴───┤'
+#+ 90│ ..... │ ..... │'
+#+108├───┬───┤ ..... │'
+#+126│ . │ . │ ..... │'
+#+144└───┴───┴───────┘'
 
 around get_border_char => sub {
     my $orig = shift;
@@ -47,13 +47,14 @@ around get_border_char => sub {
         $chars->{h}  = substr($picture,      1, 1);
         $chars->{hd} = substr($picture,      8, 1);
         $chars->{ld} = substr($picture,     16, 1);
-        $chars->{v}  = substr($picture,  17+ 0, 1);
-        $chars->{rv} = substr($picture,  34+ 8, 1);
-        $chars->{hv} = substr($picture,  34+12, 1);
-        $chars->{lv} = substr($picture,  34+16, 1);
-        $chars->{hu} = substr($picture,  68+12, 1);
-        $chars->{ru} = substr($picture, 136+ 0, 1);
-        $chars->{lu} = substr($picture, 136+16, 1);
+        $chars->{v}  = substr($picture,  18+ 0, 1);
+        $chars->{rv} = substr($picture,  36+ 8, 1);
+        $chars->{hv} = substr($picture,  36+12, 1);
+        $chars->{lv} = substr($picture,  36+16, 1);
+        $chars->{hu} = substr($picture,  72+12, 1);
+        $chars->{ru} = substr($picture, 144+ 0, 1);
+        $chars->{lu} = substr($picture, 144+16, 1);
+        #no strict 'refs'; use DDC; dd \%{"$self->{orig_class}::CHARS"};
     }
 
     # initialize @MULTI_CHARS from @PICTURES
@@ -75,26 +76,21 @@ around get_border_char => sub {
             $chars->{h}  = substr($picture,      1, 1);
             $chars->{hd} = substr($picture,      8, 1);
             $chars->{ld} = substr($picture,     16, 1);
-            $chars->{v}  = substr($picture,  17+ 0, 1);
-            $chars->{rv} = substr($picture,  34+ 8, 1);
-            $chars->{hv} = substr($picture,  34+12, 1);
-            $chars->{lv} = substr($picture,  34+16, 1);
-            $chars->{hu} = substr($picture,  68+12, 1);
-            $chars->{ru} = substr($picture, 136+ 0, 1);
-            $chars->{lu} = substr($picture, 136+16, 1);
+            $chars->{v}  = substr($picture,  18+ 0, 1);
+            $chars->{rv} = substr($picture,  36+ 8, 1);
+            $chars->{hv} = substr($picture,  36+12, 1);
+            $chars->{lv} = substr($picture,  36+16, 1);
+            $chars->{hu} = substr($picture,  72+12, 1);
+            $chars->{ru} = substr($picture, 144+ 0, 1);
+            $chars->{lu} = substr($picture, 144+16, 1);
 
             push @$multi_chars, {
                 %$entry,
                 chars => $chars,
             };
         }
+        #no strict 'refs'; use DDC; dd \@{"$self->{orig_class}::MULTI_CHARS"};
     } # init @MULTI_CHARS
-
-    #{
-    #    no strict 'refs';
-    #    use DDC; dd \%{"$self->{orig_class}::CHARS"};
-    #    use DDC; dd \@{"$self->{orig_class}::MULTI_CHARS"};
-    #}
 
     # pass
     $orig->(@_);
@@ -115,15 +111,15 @@ around get_border_char => sub {
  with 'BorderStyleRole::Source::ASCIIArt';
 
  our $PICTURE = <<'_';
- ┌───────┬───┬───┐
- │ ..... │ . │ . │
- │ ..... ├───┼───┤
- │ ..... │ . │ . │
- │ ..... ├───┴───┤
- │ ..... │ ..... │
- ├───┬───┤ ..... │
- │ . │ . │ ..... │
- └───┴───┴───────┘
+ ┌───────┬───┬───┐'
+ │ ..... │ . │ . │'
+ │ ..... ├───┼───┤'
+ │ ..... │ . │ . │'
+ │ ..... ├───┴───┤'
+ │ ..... │ ..... │'
+ ├───┬───┤ ..... │'
+ │ . │ . │ ..... │'
+ └───┴───┴───────┘'
  _
 
  our %BORDER = (
@@ -153,42 +149,42 @@ element being a hash:
          # top and bottom lines won't ever be used as separator though)
          for_header_data_separator => 1,
          picture => <<'_',
- ┍━━━━━━━┯━━━┯━━━┑
- ╿ ..... ╿ , ╿ . ╿
- ╿ ..... ┡━━━╇━━━┫
- ╿ ..... ╿ . ╿ . ╿
- ╿ ..... ┡━━━┻━━━┫
- ╿ ..... ╿ ..... ╿
- ┡━━━┯━━━┩ ..... ╿
- ╿ . ╿ . ╿ ..... ╿
- ┗━━━┻━━━┻━━━━━━━┛
+ ┍━━━━━━━┯━━━┯━━━┑'
+ ╿ ..... ╿ , ╿ . ╿'
+ ╿ ..... ┡━━━╇━━━┫'
+ ╿ ..... ╿ . ╿ . ╿'
+ ╿ ..... ┡━━━┻━━━┫'
+ ╿ ..... ╿ ..... ╿'
+ ┡━━━┯━━━┩ ..... ╿'
+ ╿ . ╿ . ╿ ..... ╿'
+ ┗━━━┻━━━┻━━━━━━━┛'
  _
      },
      {
          for_header_row => 1,
          picture => <<'_',
- ┏━━━━━━━┳━━━┳━━━┓
- ┃ ..... ┃ , ┃ . ┃
- ┃ ..... ┣━━━╋━━━┫
- ┃ ..... ┃ . ┃ . ┃
- ┃ ..... ┣━━━┻━━━┫
- ┃ ..... ┃ ..... ┃
- ┣━━━┳━━━┫ ..... ┃
- ┃ . ┃ . ┃ ..... ┃
- ┗━━━┻━━━┻━━━━━━━┛
+ ┏━━━━━━━┳━━━┳━━━┓'
+ ┃ ..... ┃ , ┃ . ┃'
+ ┃ ..... ┣━━━╋━━━┫'
+ ┃ ..... ┃ . ┃ . ┃'
+ ┃ ..... ┣━━━┻━━━┫'
+ ┃ ..... ┃ ..... ┃'
+ ┣━━━┳━━━┫ ..... ┃'
+ ┃ . ┃ . ┃ ..... ┃'
+ ┗━━━┻━━━┻━━━━━━━┛'
  _
      },
      {
          picture => <<'_',
- ┌───────┬───┬───┐
- │ ..... │ . │ . │
- │ ..... ├───┼───┤
- │ ..... │ . │ . │
- │ ..... ├───┴───┤
- │ ..... │ ..... │
- ├───┬───┤ ..... │
- │ . │ . │ ..... │
- └───┴───┴───────┘
+ ┌───────┬───┬───┐'
+ │ ..... │ . │ . │'
+ │ ..... ├───┼───┤'
+ │ ..... │ . │ . │'
+ │ ..... ├───┴───┤'
+ │ ..... │ ..... │'
+ ├───┬───┤ ..... │'
+ │ . │ . │ ..... │'
+ └───┴───┴───────┘'
  _
      },
  );
