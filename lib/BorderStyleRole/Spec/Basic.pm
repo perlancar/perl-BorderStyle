@@ -58,6 +58,7 @@ sub new {
 }
 
 sub get_struct {
+    no strict 'refs'; ## no critic: TestingAndDebugging::ProhibitNoStrict
     my $self_or_class = shift;
     if (ref $self_or_class) {
         \%{"$self_or_class->{orig_class}::BORDER"};
