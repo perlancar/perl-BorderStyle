@@ -145,85 +145,56 @@ Bool. True if drawing a footer column.
 
 Bool. True if drawing a separator line between footer rows/columns.
 
-=item * for_outer_border
-
-Bool. True if drawing an outer border. In the example below, characters denoted
-with uppercase letters are outer border, while those denoted with lowercase
-letters are inner border.
-
- ABBBBBBBBBBBCBBBBBCBBBBBD
- ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
- E           e     e     E
- ┃ ......... ┃ ... ┃ ... ┃
- E           fbbbbbgbbbbbH
- ┃ ......... ┣━━━━━┻━━━━━┫
- E           e           E
- ┃ ......... ┃ ......... ┃
- Fbbbbbcbbbbbh           E
- ┣━━━━━┳━━━━━┫ ......... ┃
- E     e     e           E
- ┃ ... ┃ ... ┃ ......... ┃
- IBBBBBGBBBBBGBBBBBBBBBBBJ
- ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
-
-=item * for_left_border
-
-Bool. True if drawing a left outer border character.
-
-=item * for_right_border
-
-Bool. True if drawing a right outer border character.
-
-=item * for_top_border
-
-Bool. True if drawing a top outer border character.
-
-=item * for_bottom_border
-
-Bool. True if drawing a bottom outer border character.
-
-=item * Other arguments
-
 =back
 
-B<Character names>. Names of known border characters are given below (a
-character label denotes the border character below it):
+B<Character names>. Names of known border characters are given below:
 
+         rd_t  h_t   hd_t        ld_t
+         | ____|     |           |
+         vv          v           v
+         ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
+  v_l -->┃    v_i -->┃ hv_i┃     ┃<-- v_r
+         ┃           ┃    \┃     ┃
+         ┃   rv_i -->┣━━━━━╋━━━━━┫<-- lv_r
+         ┃           ┃     ┃     ┃
+         ┃           ┣━━━━━┻━━━━━┫
+         ┃h_i  hd_i  ┃     ^     ┃
+         ┃|    |     ┃     |     ┃
+         ┃v    v     ┃     hu_i  ┃
+ rv_l -->┣━━━━━┳━━━━━┫<-- lv_i   ┃
+         ┃     ┃     ┃           ┃
+ ru_l -->┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
+          ^    ^                 ^
+          |    |                 |
+          h_b  hu_b              lu_b
 
- ABBBBBBBBBBBCBBBBBCBBBBBD
- ┏━━━━━━━━━━━┳━━━━━┳━━━━━┓
- E           E     E     E
- ┃ ......... ┃ ... ┃ ... ┃
- E           FBBBBBGBBBBBH
- ┃ ......... ┣━━━━━╋━━━━━┫
- E           FBBBBBIBBBBBH
- ┃ ......... ┣━━━━━┻━━━━━┫
- E           E           E
- ┃ ......... ┃ ......... ┃
- FBBBBBCBBBBBH           E
- ┣━━━━━┳━━━━━┫ ......... ┃
- E     E     E           E
- ┃ ... ┃ ... ┃ ......... ┃
- JBBBBBGBBBBBGBBBBBBBBBBBK
- ┗━━━━━┻━━━━━┻━━━━━━━━━━━┛
-
-     border character name   description
-     ---------------------   -----------
- A = rd                      right_down
- B = h                       horizontal
- C = hd                      horizontal_down
- D = ld                      left_down
- E = v                       vertical
- F = rv                      right_vertical
- G = hv                      horizontal_vertical
- H = lv                      left_vertical
- I = hu                      horizontal_up
- J = ru                      right_up
- K = lu                      left_up
+ no  border character name   description
+ --  ---------------------   -----------
+  1  h_b                     horizontal for top border
+  2  h_i                     horizontal for top border
+  3  h_t                     horizontal line, for top border
+  4  hd_t                    horizontal down line, for top border
+  5  hd_i                    horizontal down line, for inside border
+  6  hu_b                    horizontal up line, for bottom border
+  7  hu_i                    horizontal up line, for inside border
+  8  hv_i                    horizontal vertical line, for inside border
+  9  ld_t                    left down line, for top border
+ 10  lu_b                    left up line, for bottom border
+ 11  lv_i                    left vertical, for inside border
+ 12  lv_r                    left vertical, for right border
+ 13  rd_t                    right down line, for top border
+ 14  ru_b                    right up line, for bottom border
+ 15  rv_i                    right vertical line, for inside border
+ 16  rv_l                    right vertical line, for left border
+ 17  v_i                     vertical line, for inside border
+ 18  v_l                     vertical line, for left border
+ 19  v_r                     vertical line, for right border
 
 The arguments to C<get_border_char()> will also be passed to border character
 that is coderef, or to be interpreted by the class' C<get_border_char()> to vary
 the character.
+
+=back
 
 =head2 Border style structure
 
@@ -292,9 +263,9 @@ Remove C<chars> in border style structure and abstract it through
 C<get_border_char()> to be more flexible, e.g. to allow for footer area,
 vertical header (header columns), and so on.
 
-Replace the positional arguments in C<get_border_char()> with named to be more
-flexible. Replace the C<x> and C<y> arguments to refer to character with
-character C<name> and attributes, to be more flexible and readable.
+Replace the positional arguments in C<get_border_char()> with named arguments to
+be more flexible. Replace the C<x> and C<y> arguments that refer to character
+with character C<name>, to be more readable.
 
 =head2 v2
 

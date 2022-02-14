@@ -43,17 +43,25 @@ around get_border_char => sub {
 
         #say "D1";
         $picture =~ s/\R//g;
-        $chars->{rd} = substr($picture,      0, 1);
-        $chars->{h}  = substr($picture,      1, 1);
-        $chars->{hd} = substr($picture,      8, 1);
-        $chars->{ld} = substr($picture,     16, 1);
-        $chars->{v}  = substr($picture,  18+ 0, 1);
-        $chars->{rv} = substr($picture,  36+ 8, 1);
-        $chars->{hv} = substr($picture,  36+12, 1);
-        $chars->{lv} = substr($picture,  36+16, 1);
-        $chars->{hu} = substr($picture,  72+12, 1);
-        $chars->{ru} = substr($picture, 144+ 0, 1);
-        $chars->{lu} = substr($picture, 144+16, 1);
+        $chars->{h_b}  = substr($picture, 144+ 1, 1); #  1
+        $chars->{h_i}  = substr($picture, 108+ 1, 1); #  2
+        $chars->{h_t}  = substr($picture,      1, 1); #  3
+        $chars->{hd_i} = substr($picture, 108+ 4, 1); #  4
+        $chars->{hd_t} = substr($picture,      8, 1); #  5
+        $chars->{hu_b} = substr($picture, 144+ 4, 1); #  6
+        $chars->{hu_i} = substr($picture,  72+12, 1); #  7
+        $chars->{hv_i} = substr($picture,  36+12, 1); #  8
+        $chars->{ld_t} = substr($picture,     16, 1); #  9
+        $chars->{lu_b} = substr($picture, 144+16, 1); # 10
+        $chars->{lv_i} = substr($picture, 108+ 8, 1); # 11
+        $chars->{lv_r} = substr($picture,  36+16, 1); # 12
+        $chars->{rd_t} = substr($picture,      0, 1); # 13
+        $chars->{ru_b} = substr($picture, 144+ 0, 1); # 14
+        $chars->{rv_i} = substr($picture,  36+ 8, 1); # 15
+        $chars->{rv_l} = substr($picture, 108+ 0, 1); # 16
+        $chars->{v_i}  = substr($picture,  18+ 8, 1); # 17
+        $chars->{v_l}  = substr($picture,  18+ 0, 1); # 18
+        $chars->{v_r}  = substr($picture,  18+16, 1); # 19
         #no strict 'refs'; use DDC; dd \%{"$self->{orig_class}::CHARS"};
     }
 
@@ -72,17 +80,25 @@ around get_border_char => sub {
             my $chars = {};
             my $picture = $entry->{picture};
             $picture =~ s/\R//g;
-            $chars->{rd} = substr($picture,      0, 1);
-            $chars->{h}  = substr($picture,      1, 1);
-            $chars->{hd} = substr($picture,      8, 1);
-            $chars->{ld} = substr($picture,     16, 1);
-            $chars->{v}  = substr($picture,  18+ 0, 1);
-            $chars->{rv} = substr($picture,  36+ 8, 1);
-            $chars->{hv} = substr($picture,  36+12, 1);
-            $chars->{lv} = substr($picture,  36+16, 1);
-            $chars->{hu} = substr($picture,  72+12, 1);
-            $chars->{ru} = substr($picture, 144+ 0, 1);
-            $chars->{lu} = substr($picture, 144+16, 1);
+            $chars->{h_b}  = substr($picture, 144+ 1, 1); #  1
+            $chars->{h_i}  = substr($picture, 108+ 1, 1); #  2
+            $chars->{h_t}  = substr($picture,      1, 1); #  3
+            $chars->{hd_i} = substr($picture, 108+ 4, 1); #  4
+            $chars->{hd_t} = substr($picture,      8, 1); #  5
+            $chars->{hu_b} = substr($picture, 144+ 4, 1); #  6
+            $chars->{hu_i} = substr($picture,  72+12, 1); #  7
+            $chars->{hv_i} = substr($picture,  36+12, 1); #  8
+            $chars->{ld_t} = substr($picture,     16, 1); #  9
+            $chars->{lu_b} = substr($picture, 144+16, 1); # 10
+            $chars->{lv_i} = substr($picture, 108+ 8, 1); # 11
+            $chars->{lv_r} = substr($picture,  36+16, 1); # 12
+            $chars->{rd_t} = substr($picture,      0, 1); # 13
+            $chars->{ru_b} = substr($picture, 144+ 0, 1); # 14
+            $chars->{rv_i} = substr($picture,  36+ 8, 1); # 15
+            $chars->{rv_l} = substr($picture, 108+ 0, 1); # 16
+            $chars->{v_i}  = substr($picture,  18+ 8, 1); # 17
+            $chars->{v_l}  = substr($picture,  18+ 0, 1); # 18
+            $chars->{v_r}  = substr($picture,  18+16, 1); # 19
 
             push @$multi_chars, {
                 %$entry,
