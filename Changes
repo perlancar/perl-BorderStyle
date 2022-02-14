@@ -1,3 +1,22 @@
+3.0.0   2022-02-14  Released-By: PERLANCAR; Backward-Incompatible: yes; Urgency: medium
+
+        [INCOMPATIBLE CHANGES]
+
+        - Bump specifcation version from 2 to 3 due to incompatible changes.
+
+        - Remove C<chars> in border style structure and abstract it through
+          `get_border_char()` to be more flexible, e.g. to allow for footer
+          area, vertical header (header columns), and so on.
+
+        - Replace the positional arguments in C<get_border_char()> with named
+          arguments to be more flexible. Replace the C<x> and C<y> arguments
+          that refer to character with character C<name>, to be more readable.
+
+        [ENHANCEMENTS]
+
+        - Include roles in BorderStyleRole::* to replace BorderStyleBase.
+
+
 2.0.9   2022-01-27  Released-By: PERLANCAR; Urgency: medium
 
         - Fix some border characters in demo table.
