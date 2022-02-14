@@ -1,3 +1,15 @@
+3.0.2   2022-02-14  Released-By: PERLANCAR; Urgency: medium
+
+        - No spec changes.
+
+        - [border style Test::Labeled] Give different label for header row and
+          header-data separator line.
+
+        - Edit Changes.
+
+        - [build] Rebuild with POD::Weaver & Dist::Zilla plugin 'BorderStyle'.
+
+
 3.0.1   2022-02-14  Released-By: PERLANCAR; Urgency: medium
 
         - No spec changes.
