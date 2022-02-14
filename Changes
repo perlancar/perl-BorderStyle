@@ -1,3 +1,13 @@
+3.0.1   2022-02-14  Released-By: PERLANCAR; Urgency: medium
+
+        - No spec changes.
+
+        - Add BorderStyle::Test::{CustomChar,Labeled} from BorderStyleBase
+          distribution, as that distribution will be purged from CPAN.
+
+        - [bugfix] Avoid error from stricture.
+
+
 3.0.0   2022-02-14  Released-By: PERLANCAR; Backward-Incompatible: yes; Urgency: medium
 
         [INCOMPATIBLE CHANGES]
