@@ -277,3 +277,9 @@ L<Border::Style> is an older specification, superseded by this document. The
 older specification defines border style as just the border style structure, not
 the class and thus lacks methods like C<get_struct()>, C<get_args()>, and
 C<get_border_char()>.
+
+
+=head1 SEE ALSO
+
+Somewhat related: L<ColorTheme> specification, because they are often used
+together in an application.
